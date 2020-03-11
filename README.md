@@ -17,7 +17,8 @@ Android本地文件通讯,可以跨进程跟跨APP
 	        implementation 'com.github.yijigu7745:localserver:1.0'
 	}
   
-  服务端:
+# 服务端:
+
   直接调用
   
     LocalServerConnect.startServer("test", mHandler);
@@ -37,7 +38,7 @@ Android本地文件通讯,可以跨进程跟跨APP
    
     setMessage(String message);
     
-    客户端:
+# 客户端:
     
     给服务端发送消息
     
