@@ -40,7 +40,7 @@ Android本地文件通讯,可以跨进程跟跨APP
     
 # 客户端:
     
-    给服务端发送消息
+  给服务端发送消息
     
     LocalServerConnect.clientSend("test",
                         new MessageBean()
@@ -50,5 +50,5 @@ Android本地文件通讯,可以跨进程跟跨APP
                             LoggerUtil.logI(TAG, message);
                         });
      
-    客户端与服务端不是保持着长连接,客户端发送完消息后就直接结束了.   
+  客户端与服务端不是保持着长连接,客户端发送完消息后就直接结束了.   
   
