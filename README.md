@@ -6,16 +6,15 @@ Android本地文件通讯,可以跨进程跟跨APP
 
 先上依赖
 
-  allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+    allprojects {
+    	repositories {
+             maven { url 'https://jitpack.io' }
+    	}
+    }
   
-  dependencies {
-	        implementation 'com.github.yijigu7745:localserver:1.0'
-	}
+    dependencies {
+		implementation 'com.github.yijigu7745:localserver:1.0'
+    }
   
 # 服务端:
 
