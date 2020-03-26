@@ -161,8 +161,12 @@ public class LocalServerConnect {
     public void send(String address, MessageBean bean) {
         LocalSocket client = mConnect.clientList.get(address);
         if (client == null) {
-            Log.i(TAG, "发送失败: 客户端初始化失败");
-            return;
+            initClient(address);
+            client = mConnect.clientList.get(address);
+            if (client == null) {
+                Log.i(TAG, "发送失败: 客户端初始化失败");
+                return;
+            }
         }
         String message = mGson.toJson(bean);
         OutputStream os;
