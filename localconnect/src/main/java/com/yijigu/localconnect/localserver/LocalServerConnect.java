@@ -348,6 +348,7 @@ public class LocalServerConnect {
                 try {
                     if (StringUtils.isNotBlank(mHandler.getMessage())) {
                         os.write(mHandler.getMessage().getBytes());
+                        mHandler.clearMessage();
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "<服务端" + address + "往客户端发送消息失败>\n" + e.getMessage() + "\n" + CrashHandler.getInstance().printCrash(e));

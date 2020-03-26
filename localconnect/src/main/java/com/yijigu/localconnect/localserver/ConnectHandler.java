@@ -10,4 +10,8 @@ public abstract class ConnectHandler implements HandlerMessage {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void clearMessage() {
+        message = null;
+    }
 }
