@@ -3,13 +3,12 @@ package com.lkb.localserver;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.yijigu.localconnect.ExecutorUtil;
-import com.yijigu.localconnect.localserver.ConnectHandler;
-import com.yijigu.localconnect.localserver.LocalServerConnect;
+import com.yijigu.localconnect.localserver.LocalSocketClient;
 import com.yijigu.localconnect.localserver.MessageBean;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         registerView();
-        ExecutorUtil.doExecute(this::test);
+//        startServer();
     }
 
     private void registerView() {
@@ -36,47 +35,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         button = findViewById(R.id.btn_test);
         button2 = findViewById(R.id.btn_test_2);
+        button.setText("发送消息");
+        button2.setText("连接服务器");
     }
 
-    static LocalServerConnect connect;
-    private void test() {
-        LocalServerConnect.getInstance().startServer("localServer", mHandler);
-        SystemClock.sleep(5000);
-        connect = LocalServerConnect.getInstance().initClient("localServer");
-    }
 
-    ConnectHandler mHandler = new ConnectHandler() {
-        @Override
-        public void handleMessage(int type, String message) {
-            if(type % 3 == 0){
-                setMessage("服务器发送的消息---");
-            }
-        }
-    };
+    static LocalSocketClient connect;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-                ExecutorUtil.doExecute(()->{
+                ExecutorUtil.doExecute(() -> {
                     sendMessage();
                 });
                 break;
             case R.id.btn_test_2:
-                ExecutorUtil.doExecute(()->{
-                });
+                connect = new LocalSocketClient("testServer", "testClient", message -> {
+                    Log.i(TAG, "onServerReply: " + message);
+                }, () -> true);
                 break;
         }
     }
 
-    private int i = 0;
-
     private void sendMessage() {
-        if(connect != null){
-            connect.send("localServer",new MessageBean()
-                    .setCode(0)
-                    .setType(++i)
-                    .setRemark("测试发送消息" + i));
+
+        if (connect != null) {
+            connect.write(new MessageBean().setCode(998).setRemark("testClient"), new LocalSocketClient.WritingCallBack() {
+                @Override
+                public void onSuccess() {
+                    Log.i(TAG,"onSuccess");
+                }
+
+                @Override
+                public void onFailed(String message) {
+                    Log.e(TAG,"onFailed" + message);
+                }
+            });
         }
     }
 }

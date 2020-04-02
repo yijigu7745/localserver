@@ -2,11 +2,8 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
@@ -19,11 +16,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
     }
 }
 
@@ -40,4 +34,6 @@ ext {
 
     // App dependencies
     retrofitGsonVersion = '2.1.0'
+    rxJavaVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
 }
