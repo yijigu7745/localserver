@@ -37,4 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitGsonVersion"
     api project(path: ':localconnect')
+    // 下面两个是RxJava 和RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 }
