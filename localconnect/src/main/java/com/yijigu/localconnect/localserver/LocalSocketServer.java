@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author Administrator
@@ -75,21 +76,31 @@ public class LocalSocketServer {
      *
      * @return
      */
-    private Disposable initMinuteTimeTask() {
-        return initTimeTask(1, TimeUnit.MINUTES);
+    private Disposable initMinuteTask(Consumer consumer) {
+        return initTimeTask(1, TimeUnit.MINUTES, consumer);
+    }
+
+
+    /**
+     * 创建一个定时器
+     *
+     * @return
+     */
+    public static Disposable createIntervalTask(int period, TimeUnit timeUnit, Consumer consumer) {
+        return initTimeTask(period, timeUnit, consumer);
     }
 
     /**
      * 定时器
      *
-     * @param unit
+     * @param period
+     * @param timeUnit
+     * @param consumer
      * @return
      */
-    private Disposable initTimeTask(int period, TimeUnit unit) {
-        return Observable.interval(0, unit)
-                .subscribe(aLong -> {
-
-                });
+    private static Disposable initTimeTask(int period, TimeUnit timeUnit, Consumer consumer) {
+        return Observable.interval(period, timeUnit)
+                .subscribe(consumer);
     }
 
     /**
