@@ -76,7 +76,7 @@ public class LocalSocketServer {
      *
      * @return
      */
-    private Disposable initMinuteTask(Consumer consumer) {
+    private Disposable initMinuteTask(Consumer<Long> consumer) {
         return initTimeTask(1, TimeUnit.MINUTES, consumer);
     }
 
@@ -86,7 +86,7 @@ public class LocalSocketServer {
      *
      * @return
      */
-    public static Disposable createIntervalTask(int period, TimeUnit timeUnit, Consumer consumer) {
+    public static Disposable createIntervalTask(int period, TimeUnit timeUnit, Consumer<Long> consumer) {
         return initTimeTask(period, timeUnit, consumer);
     }
 
@@ -98,7 +98,7 @@ public class LocalSocketServer {
      * @param consumer
      * @return
      */
-    private static Disposable initTimeTask(int period, TimeUnit timeUnit, Consumer consumer) {
+    private static Disposable initTimeTask(int period, TimeUnit timeUnit, Consumer<Long> consumer) {
         return Observable.interval(period, timeUnit)
                 .subscribe(consumer);
     }
